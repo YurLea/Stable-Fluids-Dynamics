@@ -37,6 +37,7 @@ const pointer = {
     x: 0, y: 0,
     px: 0, py: 0,
     dx: 0, dy: 0,
+    hue: Math.random(),
     color: [1, 0.5, 0.2],
 };
 
@@ -46,6 +47,9 @@ canvas.addEventListener('pointerdown', (e) => {
     pointer.y = pointer.py = e.clientY;
     pointer.dx = 0;
     pointer.dy = 0;
+
+    pointer.hue = Math.random();
+    pointer.color = hsv2rgb(pointer.hue, 0.9, 1.0);
 });
 
 canvas.addEventListener('pointermove', (e) => {
@@ -192,6 +196,24 @@ function getPointerUV() {
     uvx = Math.max(0, Math.min(1, uvx));
     uvy = Math.max(0, Math.min(1, uvy));
     return [uvx, uvy];
+}
+
+function hsv2rgb(h, s, v) {
+    const i = Math.floor(h * 6);
+    const f = h * 6 - i;
+    const p = v * (1 - s);
+    const q = v * (1 - f * s);
+    const t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0: return [v, t, p];
+        case 1: return [q, v, p];
+        case 2: return [p, v, t];
+        case 3: return [p, q, v];
+        case 4: return [t, p, v];
+        case 5: return [v, p, q];
+    }
+    return [v, v, v];
 }
 
 function step(dt) {
