@@ -1,0 +1,8 @@
+html, body { height: 100%; margin: 0; background: #0b0f14; overflow: hidden; }
+canvas { width: 100vw; height: 100vh; display: block; }
+#ui {
+    position: fixed; left: 12px; top: 12px;
+    color: rgba(255,255,255,0.75);
+    font-family: system-ui, sans-serif; font-size: 14px;
+    user-select: none; pointer-events: none;
+}
